@@ -29,7 +29,7 @@ const Hero = () => {
                         <div className="flex items-center justify-center space-x-2">
                             <button className="btn btn-secondary btn-lg">
                                 <img src={b} />
-                                <Link to="/">Wisata Menarik</Link>
+                                <Link href={route("list.wisata")} as = "button">Wisata Menarik</Link>
                             </button>
                             <button className="btn btn-secondary btn-lg">
                                 <img src={c} />
@@ -49,10 +49,9 @@ const Hero = () => {
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <img src="/uploads/background.jpg" className="max-w-sm rounded-lg shadow-2xl" />
                     <div>
-                        <h1 className="text-5xl font-bold text-white">Assalamualaikum,
-                            Bingung berwisata? Silahkan Langsung Cari!
+                        <h1 className="text-5xl font-bold text-white">Silahkan pilih tempat Wisata dan Makanan yang ingin dikunjungi!
                         </h1>
-                        <p className="py-6 text-3xl text-white">Rekomendasi Wisata Halal Cirebon</p>
+                        <p className="py-6 text-3xl text-white">Sistem Rekomendasi Tempat Wisata dan Makanan</p>
                     </div>
                 </div>
             </div>

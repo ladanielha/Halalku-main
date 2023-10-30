@@ -8,9 +8,9 @@ const Sidebar = () => {
   
     <div className="sidebar bg-primary">
         <ul>
-            <li><Link href={route("dashboard")}>Dashboard</Link></li>
+            <li><Link href={route("admin")}>Dashboard</Link></li>
             <li><Link href={route("admin.wisata")}>Wisata</Link></li>
-            <li><Link href={route("admin.nilaialt")}>Bobot Alternatif</Link></li>
+            <li><Link href={route("admin.nilaialt")}>Makanan </Link></li>
         </ul>
     </div>
 

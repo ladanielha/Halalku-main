@@ -5,7 +5,7 @@ import g from "/resources/images/HALALKU(V2).png"
 const Navbar = ({ user }) => {
 
   return (
-    <div className="navbar bg-primary sticky top-0">
+    <div className="navbar bg-white sticky top-0">
       
       <div className="flex-1">
       <a className="btn btn-ghost normal-case text-xl text-white" href="/">
@@ -29,7 +29,7 @@ const Navbar = ({ user }) => {
                 :
                 <>
                   <li>
-                    <Link href={route("dashboard")} className="justify-between">
+                    <Link href={route("admin")} className="justify-between">
                       Dashboard Admin
                     </Link>
                   </li>

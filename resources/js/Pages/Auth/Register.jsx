@@ -7,9 +7,17 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
+    const roleSelection = [
+        { value: "User", label: "User" },
+        { value: "Admin", label: "Admin" },
+        { value: "Store", label: "Store" },
+    ];
+
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        role: '',
         password: '',
         password_confirmation: '',
     });
@@ -50,6 +58,27 @@ export default function Register() {
                     />
 
                     <InputError message={errors.name} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="role" value="Role" />
+
+                    <select
+                        name="role"
+                        required
+                        id="role"
+                        value={data.role}
+                        onChange={handleOnChange}
+                        className="mt-1 block w-full"
+                    >
+                        {roleSelection.map((role) => (
+                            <option key={role.value} value={role.value}>
+                                {role.label}
+                            </option>
+                        ))}
+                    </select>
+
+                    <InputError message={errors.role} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
