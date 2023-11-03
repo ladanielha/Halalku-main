@@ -2,6 +2,9 @@ import { Link } from "@inertiajs/react"
 
 import g from "/resources/images/HALALKU(V2).png"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart, faBell,  faUser} from "@fortawesome/free-solid-svg-icons";
+
 const Navbar = ({ user }) => {
 
   return (
@@ -16,19 +19,21 @@ const Navbar = ({ user }) => {
         <input type="text" className="input input-bordered" style={{ marginLeft: '10px' }} placeholder="Search" />
       </div>
       <div className="flex">
-        <a className="btn btn-ghost normal-case text-xl text-black" href={route("list.wisata")}>Shopping Cart</a>
+        <Link href={route("list.wisata")} className="btn btn-ghost normal-case text-xl text-black">
+          <FontAwesomeIcon icon={faShoppingCart} />
+        </Link>
       </div>
       <div className="flex">
-        <a className="btn btn-ghost normal-case text-xl text-black" href={route("formreko.wisata")}>Notification</a>
+        <Link href={route("formreko.wisata")} className="btn btn-ghost normal-case text-xl text-black">
+          <FontAwesomeIcon icon={faBell} />
+        </Link>
       </div>
       <div className="flex-none">
 
 
         <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img src="https://img1.pngdownload.id/20180714/ggq/kisspng-user-profile-computer-icons-login-clip-art-profile-picture-icon-5b49de2f1ef441.4301202215315676631268.jpg" />
-            </div>
+          <label tabIndex={0} className="btn btn-ghost">
+            <FontAwesomeIcon icon={faUser} />
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             {!user ? (
@@ -53,8 +58,8 @@ const Navbar = ({ user }) => {
               </>
             )}
           </ul>
+        </div>
       </div>
-    </div>
     </div >
   )
 }
