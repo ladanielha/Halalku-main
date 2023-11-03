@@ -29,7 +29,7 @@ const Hero = () => {
                         <div className="flex items-center justify-center space-x-2">
                             <button className="btn btn-secondary btn-lg">
                                 <img src={b} />
-                                <Link href={route("list.wisata")} as = "button">Wisata Menarik</Link>
+                                <Link href={route("searchtempat")} as = "button">Wisata Menarik</Link>
                             </button>
                             <button className="btn btn-secondary btn-lg">
                                 <img src={c} />

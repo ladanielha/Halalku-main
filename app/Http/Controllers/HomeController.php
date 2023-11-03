@@ -34,6 +34,7 @@ class HomeController extends Controller
     public function wisata()
     {
         $places = new PlacesCollection(Places::paginate(15));
+       
         return Inertia::render('Client/Wisata',[ 
             'places'=> $places]);
     }

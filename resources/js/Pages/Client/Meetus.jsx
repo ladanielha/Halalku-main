@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "@/Components/Navbar";
-import g from "/resources/images/Fred.jpeg";
+import g from "/resources/images/Fred.png";
 import b from "/resources/images/erick.jpg";
 import d from "/resources/images/daniel.jpeg";
 import w from "/resources/images/wilson.jpg";
@@ -42,6 +42,7 @@ const Meetus = (props) => {
                                 Frederick Alexander Badaruddin
                             </p>
                             <p className="text-base text-gray-400 font-normal">Software Engineer</p>
+                            <a href="https://www.linkedin.com/in/laurentius-daniel-719ab3131/"className="text-base text-cyan-500 font-semibold">Visit my LinkedIn</a>
                         </div>
                     </div>
                     <div className="w-full bg-white rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">
@@ -56,6 +57,7 @@ const Meetus = (props) => {
                         <div className="text-center py-8 sm:py-6">
                             <p className="text-xl text-gray-700 font-bold mb-2">Laurentius Daniel</p>
                             <p className="text-base text-gray-400 font-normal">Sistem Rekomendasi</p>
+                            <a href="https://www.linkedin.com/in/laurentius-daniel-719ab3131/"className="text-base text-cyan-500 font-semibold">Visit my LinkedIn</a>
                         </div>
                     </div>
                     <div className="w-full bg-white rounded-lg shadow-lg overflow-hidden flex flex-col justify-center items-center">

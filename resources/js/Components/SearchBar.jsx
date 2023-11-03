@@ -1,17 +1,18 @@
+import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder, city }) {
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
-    //console.log(data);
 
     const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
-        const newFilter = data.filter((value) => {
-            return value.name.toLowerCase().includes(searchWord.toLowerCase());
+        const newFilter = city.filter((value) => {
+            return value.namakota.toLowerCase().includes(searchWord.toLowerCase());
         });
-        //console.log(searchWord);
         if (searchWord === "") {
             setFilteredData([]);
         } else {
@@ -20,14 +21,14 @@ function SearchBar({ placeholder, data }) {
     };
 
     return (
-        <div className="row d-flex justify-content-center ">
-            <div className="col-md-6">
+        <div className="flex items-center bg-white rounded-lg shadow-md p-2 pl-4">
+            <div className="text-gray-500">
                 <div className="form">
-                    <i className="fa fa-search"></i>
+                    <FontAwesomeIcon icon={faSearch} />
                     <input
                         type="text"
-                        placeholder={placeholder}
-                        className="form-control form-input"
+                        placeholder="kota"
+                        className="w-64 focus:outline-none ml-2" // Adjust the width (e.g., w-64 for a wider input)
                         value={wordEntered}
                         onChange={handleFilter}
                     />
@@ -38,16 +39,21 @@ function SearchBar({ placeholder, data }) {
                     <div className="dataResult">
                         {filteredData.slice(0, 15).map((value, index) => {
                             return (
-                                <div className="list border-bottom" key={index}>
-                                    <div className="d-flex flex-column ml-3">
-                                        <span>{value.name}</span>
+                                <Link
+                                    href={route('wisata.kota', { namakota: value.namakota })}
+                                    method="get"
+                                    key={index}
+                                >
+                                    <div className="list border-bottom" key={index}>
+                                        <div className="d-flex flex-column ml-3">
+                                            <span>{value.namakota}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })}
                     </div>
                 )}
-
             </div>
         </div>
     );

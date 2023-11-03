@@ -5,7 +5,7 @@ import g from "/resources/images/HALALKU(V2).png"
 const Navbar = ({ user }) => {
 
   return (
-    <div className="navbar bg-white sticky top-0">
+    <div className="navbar bg-white sticky top-0 z-20">
       
       <div className="flex-1">
       <a className="btn btn-ghost normal-case text-xl text-white" href="/">

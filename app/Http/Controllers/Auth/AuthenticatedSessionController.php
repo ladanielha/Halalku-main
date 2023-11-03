@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('store');
         }
         else { 
-            return redirect()->route('home');
+            return redirect()->route('user');
             }
 
             Auth::guard('web')->logout();

@@ -19,7 +19,7 @@ class WisataController extends Controller
      */
     public function index()
     {
-        $places = new PlacesCollection(Places::paginate(20));
+        $places = new PlacesCollection(Places::paginate(100));
         return Inertia::render('Admin/Wisata/index',[ 
             'places'=> $places]);
     }
@@ -105,6 +105,25 @@ class WisataController extends Controller
             'places' => $place
         ]);
     }
+    
+
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function wisatakota($request)
+    {
+        //dd($request);
+
+        $places = Places::where('namakota', $request)->paginate(15);
+        return Inertia::render('Client/Wisata', [
+            'places' => $places
+        ]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.
