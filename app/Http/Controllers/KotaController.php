@@ -1,12 +1,14 @@
-.<?php
+<?php
 
     namespace App\Http\Controllers;
 
     use Illuminate\Support\Facades\Validator;
     use Illuminate\Http\Request;
     use App\Http\Resources\PlacesCollection;
+    use App\Http\Resources\KotaCollection;
     use App\Models\Nilaialt;
     use App\Models\Places;
+    use App\Models\Kota;
     use Inertia\Inertia;
 
 
@@ -20,9 +22,9 @@
          */
         public function index()
         {
-            $places = new PlacesCollection(Places::paginate(20));
-            return Inertia::render('Admin/Wisata/index', [
-                'places' => $places
+            $kotas = new KotaCollection(Kota::paginate(20));
+            return Inertia::render('Admin/Kota/index', [
+                'kota' => $kotas
             ]);
         }
 
@@ -33,7 +35,7 @@
          */
         public function create()
         {
-            return Inertia::render('Admin/Wisata/kreate');
+            return Inertia::render('Admin/Kota/create');
         }
 
         /**
@@ -45,18 +47,10 @@
 
         public function store(Request $request)
         {
-
             //set validation
             $request->validate([
-                'namatempat' => 'required',
-                'jeniswisata' => 'required',
-                'alamat' => 'required',
-                'harga' => 'required',
-                'jambuka' => 'required',
-                'jamtutup' => 'required',
-                'desc'  => 'required',
+                'namakota' => 'required',
                 'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-                'link' => 'required',
             ]);
 
             if ($request->hasFile('gambar')) {
@@ -65,32 +59,16 @@
                 $gambar->move(public_path('uploads'), $gambarName);
             }
 
-            //create wisata
-            $places = new Places([
-                'namatempat' => $request->input('namatempat'),
-                'jeniswisata' => $request->input('jeniswisata'),
-                'alamat' => $request->input('alamat'),
-                'harga' => $request->input('harga'),
-                'jambuka' => $request->input('jambuka'),
-                'jamtutup' => $request->input('jamtutup'),
-                'desc' => $request->input('desc'),
+            //create kota
+            $kota = new Kota([
+                'namakota' => $request->input('namakota'),  
                 'gambar' => $gambarName, // Store the image path in the database
-                'link' => $request->input('link'),
+                
             ]);
 
-            $places->save();
-
-            Nilaialt::create([
-                'wisata_id' => $places->wisata_id,
-                'rate_fasilitas' => "0.25",
-                'rate_pelayanan' => "0.25",
-                'rate_ramahkeluarga' => "0.25",
-                'rate_akomodasi' => "0.25",
-
-            ]);
-
+            $kota->save();
             //redirect
-            return redirect()->route('admin.wisata')->with('message', 'Data Berhasil Disimpan!');
+            return redirect()->route('admin.kota')->with('message', 'Data Kota Berhasil Disimpan!');
         }
 
 

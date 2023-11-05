@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nilaialt', function (Blueprint $table) { 
+        Schema::create('nilaimakananahp', function (Blueprint $table) {
             $table->id('nilaialt_id');
-            $table->unsignedBigInteger('wisata_id');
-            $table->foreign('wisata_id')->references( columns:'wisata_id')->on( table: 'datawisata');
-            $table->decimal('rate_fasilitas');
-            $table->decimal('rate_pelayanan');
-            $table->decimal('rate_ramahkeluarga');
-            $table->decimal('rate_akomodasi');
+            $table->unsignedBigInteger('makanan_id');
+            $table->foreign('makanan_id')->references(columns: 'makanan_id')->on(table: 'datamakanan');
+            $table->decimal('rate_harga');
+            $table->decimal('rate_kualitas');
+            $table->decimal('rate_gizi');
+            $table->decimal('rate_porsi');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nilaialt');
+        Schema::dropIfExists('nilaimakanancirebon');
     }
 };

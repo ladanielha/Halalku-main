@@ -12,7 +12,7 @@ export default function Rekomendasi(props) {
     return (
         <div className=" min-h-screen bg-slate-50">
             <Head title="Halalku" />
-            <Navbar />
+            <Navbar/>
             <section className='py-10 md:py-16'>
                 <div className='container'>
                     <div className='text-center'>

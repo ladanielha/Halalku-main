@@ -1,7 +1,6 @@
 import Sidebar from '@/Components/Admin/Sidebar';
 import Navbaradmin from '@/Components/Navbaradmin';
-import { router } from '@inertiajs/react';
-import { Head , router, useForm} from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Create(props, errors) {
@@ -19,7 +18,7 @@ export default function Create(props, errors) {
     //function "storePost"
     const storeWisata = async (e) => {
         e.preventDefault();
-    
+
         const formData = new FormData();
         formData.append('namatempat', namatempat);
         formData.append('jeniswisata', jeniswisata);
@@ -30,7 +29,7 @@ export default function Create(props, errors) {
         formData.append('desc', desc);
         formData.append('gambar', gambar);
         formData.append('link', link);
-    
+
         router.post('/storewisata', formData);
     }
     //console.log("cekdarihalcreate", props)
@@ -56,7 +55,7 @@ export default function Create(props, errors) {
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Nama Wisata</label>
-                                            <input type="text" className="form-control" value={namatempat} onChange={(e) => setNamatempat(e.target.value)} placeholder="Keraton Cirebon" />
+                                            <input type="text" className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={namatempat} onChange={(e) => setNamatempat(e.target.value)} placeholder="Keraton Cirebon" />
                                         </div>
                                         {props.errors.namatempat && (
                                             <div className="alert alert-error">
@@ -68,7 +67,7 @@ export default function Create(props, errors) {
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Jenis Wisata</label>
-                                            <input type="text" className="form-control" value={jeniswisata} onChange={(e) => setJeniswisata(e.target.value)} placeholder="Wisata Buatan" />
+                                            <input type="text" className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={jeniswisata} onChange={(e) => setJeniswisata(e.target.value)} placeholder="Wisata Buatan" />
                                         </div>
                                         {props.errors.jeniswisata && (
                                             <div className="alert alert-error">
@@ -81,7 +80,7 @@ export default function Create(props, errors) {
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Alamat</label>
-                                            <textarea className="form-control" value={alamat} onChange={(e) => setAlamat(e.target.value)} placeholder="Jl, Asd no 1" rows={4}></textarea>
+                                            <textarea className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={alamat} onChange={(e) => setAlamat(e.target.value)} placeholder="Jl, Asd no 1" rows={4}></textarea>
                                         </div>
                                         {props.errors.alamat && (
                                             <div className="alert alert-error">
@@ -92,7 +91,7 @@ export default function Create(props, errors) {
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Harga</label>
-                                            <input type="text" className="form-control" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="10000" />
+                                            <input type="text" className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={harga} onChange={(e) => setHarga(e.target.value)} placeholder="10000" />
                                         </div>
                                         {props.errors.harga && (
                                             <div className="alert alert-error">
@@ -104,7 +103,7 @@ export default function Create(props, errors) {
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Jam Buka</label>
-                                            <input type="number" className="form-control" value={jambuka} onChange={(e) => setJambuka(e.target.value)} placeholder="8" />
+                                            <input type="number" className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={jambuka} onChange={(e) => setJambuka(e.target.value)} placeholder="8" />
                                         </div>
                                         {props.errors.jambuka && (
                                             <div className="alert alert-error">
@@ -116,7 +115,7 @@ export default function Create(props, errors) {
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Jam Tutup</label>
-                                            <input type="number" min={0} max={24} className="form-control" value={jamtutup} onChange={(e) => setJamtutup(e.target.value)} placeholder="18" />
+                                            <input type="number" min={0} max={24} className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={jamtutup} onChange={(e) => setJamtutup(e.target.value)} placeholder="18" />
                                         </div>
                                         {props.errors.jamtutup && (
                                             <div className="alert alert-error">
@@ -128,7 +127,7 @@ export default function Create(props, errors) {
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Desc</label>
-                                            <textarea className="form-control" value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="Keterangan" rows={4}></textarea>
+                                            <textarea className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="Keterangan" rows={4}></textarea>
                                         </div>
                                         {props.errors.desc && (
                                             <div className="alert alert-error">
@@ -138,19 +137,29 @@ export default function Create(props, errors) {
                                         )}
 
                                         <div className="mb-3">
-                                            <label className="form-label fw-bold">Gambar</label>                                            
-                                            <input type="file" className="form-control" onChange={(e) => setGambar(e.target.files[0])} />
+                                            <label className="form-label fw-bold">Gambar</label>
+                                            <input type="file" className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" onChange={(e) => setGambar(e.target.files[0])} />
                                         </div>
                                         {props.errors.gambar && (
                                             <div className="alert alert-error">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
                                                 <span>{props.errors.gambar}</span>
                                             </div>
                                         )}
+                                        {gambar && (
+                                            <div className="mb-3">
+                                                <label className="form-label fw-bold text-emerald-400 ">Preview Gambar</label>
+                                                <img className="mt-2 flex h-400 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900"
+                                                src={URL.createObjectURL(gambar)} alt="Gambar Preview" style={{ maxWidth: '40%' }} />
+                                            </div>
+                                        )}
+
 
                                         <div className="mb-3">
                                             <label className="form-label fw-bold">Link Map</label>
-                                            <input className="form-control" value={link} onChange={(e) => setLink(e.target.value)} />
+                                            <input className="form-control mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none border-gray-900" value={link} onChange={(e) => setLink(e.target.value)} />
                                         </div>
                                         {props.errors.link && (
                                             <div className="alert alert-error">

@@ -21,23 +21,28 @@ const Navbar = ({ user }) => {
               </div>
             </label>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              {!user ?
-                <>
-                  <li><Link href={route("login")} as="button">Login</Link></li>
-                  <li><Link href={route("register")} as="button">Register</Link></li>
-                </>
-                :
-                <>
-                  <li>
-                    <Link href={route("admin")} className="justify-between">
-                      Dashboard Admin
-                    </Link>
-                  </li>
-                  <li><Link href={route("profile.edit")} as="button" >Profile</Link></li>
-                  <li><Link href={route("logout")} as="button" method="POST">Logout</Link></li>
-                </>
-              }
-            </ul>
+            {!user ? (
+              <>
+                <li><Link href={route("login")} as="button">Login</Link></li>
+                <li><Link href={route("register")} as="button">Register</Link></li>
+              </>
+            ) : user.role === "Admin" ? (
+              <>
+                <li>
+                  <Link href={route("admin")} className="justify-between">
+                    Dashboard Admin
+                  </Link>
+                </li>
+                {/* <li><Link href={route("profile.edit")} as="button" >Profile</Link></li> */}
+                <li><Link href={route("logout")} as="button" method="POST">Logout</Link></li>
+              </>
+            ) : (
+              <>
+                {/* <li><Link href={route("profile.edit")} as="button" >Profile</Link></li> */}
+                <li><Link href={route("logout")} as="button" method="POST">Logout</Link></li>
+              </>
+            )}
+          </ul>
           </div>
       </div>
     </div>

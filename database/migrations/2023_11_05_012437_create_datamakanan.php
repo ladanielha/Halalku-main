@@ -13,18 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('datawisata', function (Blueprint $table) {
-            $table->id('wisata_id');
-            $table->string('namatempat');
-            $table->string('jeniswisata');
+        Schema::create('datamakanan', function (Blueprint $table) {
+            $table->id('makanan_id');
+            $table->string('store_id');
+            $table->string('namamakanan');
+            $table->string('jenismakanan');
             $table->string('alamat');
             $table->integer('harga');
-            $table->integer('jambuka');
-            $table->integer('jamtutup');
             $table->string('desc');
             $table->string('gambar');
-            $table->string('kota');
-            $table->string('link');
+            $table->string('kota');     
+            $table->string('sertifikat');
             $table->timestamps();
         });
     }
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('destinetions');
+        Schema::dropIfExists('datamakanan');
     }
 };

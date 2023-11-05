@@ -41,19 +41,19 @@ const Navbar = ({ user }) => {
                 <li><Link href={route("login")} as="button">Login</Link></li>
                 <li><Link href={route("register")} as="button">Register</Link></li>
               </>
-            ) : user.role === "admin" ? (
+            ) : user.role === "Admin" ? (
               <>
                 <li>
                   <Link href={route("admin")} className="justify-between">
                     Dashboard Admin
                   </Link>
                 </li>
-                <li><Link href={route("profile.edit")} as="button" >Profile</Link></li>
+                {/* <li><Link href={route("profile.edit")} as="button" >Profile</Link></li> */}
                 <li><Link href={route("logout")} as="button" method="POST">Logout</Link></li>
               </>
             ) : (
               <>
-                <li><Link href={route("profile.edit")} as="button" >Profile</Link></li>
+                {/* <li><Link href={route("profile.edit")} as="button" >Profile</Link></li> */}
                 <li><Link href={route("logout")} as="button" method="POST">Logout</Link></li>
               </>
             )}

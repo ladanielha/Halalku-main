@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\HomeController;
@@ -6,6 +7,7 @@ use App\Http\Controllers\WisataController;
 use App\Http\Controllers\NilaialtController;
 use App\Http\Controllers\RekomendasiController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\KotaController;
 use App\Http\Controllers\KotanameController;
 use App\Http\Controllers\MeetUsController;
 use Illuminate\Foundation\Application;
@@ -65,7 +67,7 @@ Route::middleware('CheckRole:User')->group(function () {
     Route::get('/userhome', [HomeController::class, 'index'])->name('user');;
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('CheckRole:Admin')->group(function () {
     //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -83,6 +85,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/nilaialt/edit', [nilaialtController::class, 'edit'])->name('edit.nilaialt');
     Route::post('/nilaialt/update', [nilaialtController::class, 'update'])->name('update.nilaialt');
     Route::post('/nilaialt/delete', [nilaialtController::class, 'destroy'])->name('delete.nilaialt');
+    //crud kota
+    Route::get('/listkota', [KotaController::class, 'index'])->name('admin.kota');
+    Route::get('/createkota', [KotaController::class, 'create'])->name('create.kota');
+    Route::post('/storekota', [KotaController::class, 'store'])->name('store.kota');
+    Route::get('/wisata/edit', [KotaController::class, 'edit'])->name('edit.wisata');
+    Route::post('/wisata/update', [KotaController::class, 'update'])->name('update.wisata');
+    Route::post('/wisata/delete', [KotaController::class, 'destroy'])->name('delete.wisata');
+
 });
 
 require __DIR__ . '/auth.php';
