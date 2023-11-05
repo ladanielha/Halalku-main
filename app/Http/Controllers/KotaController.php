@@ -2,11 +2,9 @@
 
     namespace App\Http\Controllers;
 
-    use Illuminate\Support\Facades\Validator;
+    
     use Illuminate\Http\Request;
-    use App\Http\Resources\PlacesCollection;
     use App\Http\Resources\KotaCollection;
-    use App\Models\Nilaialt;
     use App\Models\Places;
     use App\Models\Kota;
     use Inertia\Inertia;

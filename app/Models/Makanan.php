@@ -2,34 +2,31 @@
 
 namespace App\Models;
 
-
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class Places extends Model
+class Makanan extends Model
 {
     use HasFactory;
 
-    protected $table = 'datawisata';
+    protected $table = 'datamakanan';
 
 
     protected $fillable = [
-        'wisata_id',
-        'namatempat', 
-        'jeniswisata',
-        'alamat', 
-        'harga', 
-        'jambuka', 
-        'jamtutup',
-        'desc' ,
-        'gambar' ,
+        'makanan_id',
+        'store_id',
+        'namamakanan',
+        'jenismakanan',
         'namakota',
-        'link'
+        'harga',
+        'desc',
+        'gambar',
+        'sertifikat'
     ];
 
-    protected $primaryKey = 'wisata_id';
-    
+    protected $primaryKey = 'makanan_id';
+
     protected $casts = [
         'created_at' => 'datetime',
     ];
@@ -43,7 +40,7 @@ class Places extends Model
     protected function gambar(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => url('uploads/'.$value),
+            get: fn ($value) => url('uploads/' . $value),
         );
     }
 }

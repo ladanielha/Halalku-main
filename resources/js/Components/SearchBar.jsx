@@ -40,7 +40,7 @@ function SearchBar({ placeholder, city }) {
                         {filteredData.slice(0, 15).map((value, index) => {
                             return (
                                 <Link
-                                    href={route('wisata.kota', { namakota: value.namakota })}
+                                    href={route('daftarwisata.kota', { namakota: value.namakota })}
                                     method="get"
                                     key={index}
                                 >

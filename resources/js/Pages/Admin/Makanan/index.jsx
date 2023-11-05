@@ -1,21 +1,23 @@
 import Sidebar from '@/Components/Admin/Sidebar';
-import Tablenilaialt from '@/Components/Admin/Tablenilaialt';
+import Tablemakanan from '@/Components/Admin/Tablemakanan';
 import Navbaradmin from '@/Components/Navbaradmin';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index(props) {
-    //console.log('cek ', props)
+    console.log('cek ', props)
     return (
         <>
-        
+            <Navbaradmin user={props.auth.user} />
             <div className="min-h-screen bg-slate-50">
-                <Navbaradmin user={props.auth.user} />
-                <Head title="Dashboard" />
-                <Sidebar/>
 
-                <div className="container py-12 max-w-7xl mx-auto sm:px-6 lg:px-56">
-                    <div className="btn-group btn-group-vertical lg:btn-group-horizontal left-0">
-                            <h1 href="#">NIlai Wisata Rekomendasi AHP</h1>
+                <Head title="Admin Makanan" />
+                <Sidebar />
+
+                <div className="py-12">
+
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-56">
+                        <div className="btn-group btn-group-vertical lg:btn-group-horizontal left-0">
+                            <Link href={route("create.makanan")} className="btn btn-primary">Tambah Data</Link>
                         </div>
 
                         {props.flash.message && (
@@ -24,9 +26,12 @@ export default function Index(props) {
                                 <span>{props.flash.message}</span>
                             </div>
                         )}.
-                    <Tablenilaialt nilaialts={props.nilaialts} />
+
+                        <Tablemakanan makanan={props.makanan.data} />
+                    </div>
+
                 </div>
-                
+
             </div>
 
         </>

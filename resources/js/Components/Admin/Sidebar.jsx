@@ -14,8 +14,9 @@ const Sidebar = () => {
             <li><Link href={route("admin.kota")}>Kota</Link></li>
             <li><Link href={route("admin.wisata")}>Wisata</Link></li>
             <li><Link href={route("admin.nilaialt")}>Nilai Wisata AHP</Link></li>
-            <li><Link href={route("admin.nilaialt")}>Makanan</Link></li>
-            <li><Link href={route("admin.nilaialt")}>Nilai Makanan</Link></li>
+            <li><Link href={route("admin.makanan")}>Makanan</Link></li>
+            <li><Link href={route("admin.nilaimakananahp")}>Nilai Makanan AHP</Link></li>
+            <li><Link href={route("admin.nilaialt")}>Nilai Makanan SAW</Link></li>
         </ul>
     </div>
 

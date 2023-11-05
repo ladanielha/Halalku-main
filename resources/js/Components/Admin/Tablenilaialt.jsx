@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react"
 
 
 const isTablenilaialt = (nilaialts) => {
-            console.log("nihnilai",nilaialts)
+           // console.log("nihnilai",nilaialts)
         return (
             <div className="overflow-x-auto">
                             <table className="table">
@@ -26,15 +26,15 @@ const isTablenilaialt = (nilaialts) => {
                                                 {++i}
                                             </td>
                                             <td>
-                                                {data.wisata_id}
+                                                {data.namatempat}
                                             </td>
                                             <td>{data.rate_fasilitas}</td>
                                             <td>{data.rate_pelayanan}</td>
                                             <td>{data.rate_ramahkeluarga}</td>
                                             <td>{data.rate_akomodasi}</td>
                                             <th>
-                                                <Link href={route('edit.nilaialt')} method="get" data={{ nilaialt_id: data.nilaialt_id }} className="btn btn-outline btn-xs btn-warning">Edit</Link>
-                                                <Link href={route('delete.nilaialt')} method="post" data={{ nilaialt_id: data.nilaialt_id }} className="btn btn-outline btn-xs btn-error">Hapus</Link>
+                                                <Link href={route('edit.nilaialt',data={ nilaialt_id: data.nilaialt_id })} method="get"  className="btn btn-outline btn-xs btn-warning">Edit</Link>
+                                                
                                             </th>
                                         </tr>)}
                                 </tbody>

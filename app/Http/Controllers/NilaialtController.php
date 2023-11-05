@@ -16,11 +16,22 @@ class NilaialtController extends Controller
     public function index()
     {
         //get all nilaialt
-        $nilaialt= Nilaialt::get();
+        $datanilai = Nilaialt::select(
 
+            'nilaialt_id',
+            'nilaialt.wisata_id',
+            'rate_fasilitas',
+            'rate_pelayanan',
+            'rate_ramahkeluarga',
+            'rate_akomodasi',
+            'datawisata.namatempat'
+        )
+        ->join('datawisata', 'nilaialt.wisata_id', '=', 'datawisata.wisata_id')
+        ->get();
+        
         //return view
         return Inertia::render('Admin/Nilaialt/index',[ 
-            'nilaialts'=> $nilaialt]);
+            'nilaialts'=> $datanilai]);
     }
 
     /**
@@ -61,11 +72,23 @@ class NilaialtController extends Controller
     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Nilaialt $nilaialt, Request $request)
+    public function edit(Request $request)
     {
-        //dd($nilaialt);
+        //dd($request);
+        $datanilai = Nilaialt::select(
+
+            'nilaialt_id',
+            'nilaialt.wisata_id',
+            'rate_fasilitas',
+            'rate_pelayanan',
+            'rate_ramahkeluarga',
+            'rate_akomodasi',
+            'datawisata.namatempat'
+        )
+        ->join('datawisata', 'nilaialt.wisata_id', '=', 'datawisata.wisata_id')
+        ->get();
         return Inertia::render('Admin/Nilaialt/edit',[ 
-            'nilaialt'=> $nilaialt->find($request->id)]);
+            'nilaialt'=> $datanilai->find($request->nilaialt_id)]);
     }
 
     /**
@@ -75,28 +98,29 @@ class NilaialtController extends Controller
      * @param  \App\Models\Nilaialt  $nilaialt
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nilaialt $nilaialt)
+    public function update(Request $request)
     {
+        //dd($request);
         //validasi 
+        
        $request->validate([
-        'wisata_id'=> 'required', 
-        'rate_fasilitas'=>  ['required', 'integer' ],
-        'rate_pelayanan'=> ['required', 'integer' ],
-        'rate_ramahkeluarga'=> ['required', 'integer' ],
-        'rate_akomodasi'=> ['required', 'integer' ],
+        'nilaialt_id'=>['required', ],
+        'rate_fasilitas'=>  'required' ,
+        'rate_pelayanan'=> 'required'  ,
+        'rate_ramahkeluarga'=> 'required'  ,
+        'rate_akomodasi'=> 'required'
         ]);
         
         //update nialialt ke db
-        Nilaialt::where('nilai_alt', $request->nilaialt_id)->update([
-            'rate_fasilitas'=> $request->r_fasilitas,
-            'rate_pelayanan'=> $request->r_pelayanan,
-            'rate_ramahkeluarga'=> $request->r_ramahkeluarga,
-            'rate_akomodasi'=> $request->r_akomodasi
+        Nilaialt::where('nilaialt_id', $request->get('nilaialt_id'))->update([
+            'rate_fasilitas'=> $request->get('rate_fasilitas'),
+            'rate_pelayanan'=> $request->get('rate_pelayanan'),
+            'rate_ramahkeluarga'=> $request->get('rate_ramahkeluarga'),
+            'rate_akomodasi'=> $request->get('rate_akomodasi')
         ]);
-        
-
+      
         //redirect
-        return redirect()->route('admin.Nialialt')->with('message', 'nialialt Berhasil Disimpan!');
+        return redirect()->route('admin.nilaialt')->with('message', 'Nilai Berhasil Diupdate!');
     }
 
     /**
@@ -108,9 +132,9 @@ class NilaialtController extends Controller
     public function destroy(Request $request)
     {
         //deleta nilaialt
-        $nilaialt = Nilaialt::find($request->id);
-        Nilaialt::destroy($nilaialt->id);
-        return redirect()->route('admin.kriteria')->with('message', 'Kriteria Berhasil Dihapus!');
+        $nilaialt = Nilaialt::find($request->nilaialt_id);
+        Nilaialt::destroy($nilaialt->nilaialt_id);
+        return redirect()->route('admin.nilaialt')->with('message', 'Kriteria Berhasil Dihapus!');
 
     }
 }

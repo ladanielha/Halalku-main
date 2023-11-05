@@ -19,7 +19,7 @@ class WisataController extends Controller
      */
     public function index()
     {
-        $places = new PlacesCollection(Places::paginate(100));
+        $places = new PlacesCollection(Places::paginate(50));
         return Inertia::render('Admin/Wisata/index',[ 
             'places'=> $places]);
     }
@@ -100,30 +100,30 @@ class WisataController extends Controller
      */
     public function detail($id)
     {
-        $place = Places::find($id);
+        $wisatadata = Places::select(
+            'datawisata.wisata_id',
+            'namatempat',
+            'jeniswisata',
+            'alamat',
+            'harga',
+            'jambuka',
+            'jamtutup',
+            'desc',
+            'gambar',
+            'link',
+            'Nilaialt.rate_fasilitas',
+            'Nilaialt.rate_pelayanan',
+            'Nilaialt.rate_ramahkeluarga',
+            'Nilaialt.rate_akomodasi'
+        )
+            ->join('Nilaialt', 'datawisata.wisata_id', '=', 'Nilaialt.wisata_id')
+            ->where('datawisata.wisata_id', $id)
+            ->first();
+        //$place = Places::find($id);
         return Inertia::render('Client/Wisatadetail', [
-            'places' => $place
+            'places' => $wisatadata
         ]);
     }
-    
-
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function wisatakota($request)
-    {
-        //dd($request);
-
-        $places = Places::where('namakota', $request)->paginate(15);
-        return Inertia::render('Client/Wisata', [
-            'places' => $places
-        ]);
-    }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -148,34 +148,54 @@ class WisataController extends Controller
     public function update(Request $request)
     {
 
-        //$dataplaces = Places::find($request->id);
+        $datawisata = Places::find($request->wisata_id);
+
         $request->validate([
-            'namatempat' => 'required', 
+            'namatempat' => 'required',
             'jeniswisata' => 'required',
-            'alamat' => 'required', 
-            'harga' => 'required', 
-            'jambuka' => 'required', 
+            'alamat' => 'required',
+            'harga' => 'required',
+            'jambuka' => 'required',
             'jamtutup' => 'required',
-            'desc'  => 'required',
-            'gambar'  => 'required',
+            'desc' => 'required',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the validation rules
             'link' => 'required',
-            ]);
+        ]);
     
-            //update post
-            Places::where('wisata_id', $request->wisata_id)->update([
-                'namatempat'     => $request->namatempat,
-                'jeniswisata'     => $request->jeniswisata,
-                'alamat'   => $request->alamat,
-                'harga'   => $request->harga,
-                'jambuka'   => $request->jambuka,
-                'jamtutup'   => $request->jamtutup,
-                'desc'   => $request->desc,
-                'gambar'   => $request->gambar,
-                'link'   => $request->link,
-            ]);
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $gambarName = time() . '.' . $gambar->getClientOriginalExtension();
+            $gambar->move(public_path('uploads'), $gambarName);
     
-            //redirect
-            return redirect()->route('admin.wisata')->with('message', 'Data Berhasil Diupdate!');
+            // Remove the old image if it exists
+            if ($datawisata->gambar) {
+                $oldImagePath = public_path('uploads') . '/' . $datawisata->gambar;
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+        } else {
+            // jika tidak ada image maka tutup 
+           $url = $datawisata->gambar;
+           $imageName = pathinfo($url, PATHINFO_BASENAME);
+           $gambarName =$imageName;
+        }
+
+        // Update wisata ke database
+        Places::where('wisata_id', $request->wisata_id)->update([
+            'namatempat' => $request->namatempat,
+            'jeniswisata' => $request->jeniswisata,
+            'alamat' => $request->alamat,
+            'harga' => $request->harga,
+            'jambuka' => $request->jambuka,
+            'jamtutup' => $request->jamtutup,
+            'desc' => $request->desc,
+            'gambar' => $gambarName, // Store the updated image path in the database
+            'link' => $request->link,
+        ]);
+    
+        // Redirect
+        return redirect()->route('admin.wisata')->with('message', 'Data Berhasil Diperbarui!');
     }
 
     /**
@@ -189,6 +209,5 @@ class WisataController extends Controller
         $places = Places::find($request->wisata_id);
         $places->delete();
         return redirect()->route('admin.wisata')->with('message', 'Data Berhasil Dihapus!');
-        
     }
 }
