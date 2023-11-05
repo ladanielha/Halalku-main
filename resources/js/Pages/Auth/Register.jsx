@@ -8,6 +8,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
     const roleSelection = [
+        { value: "Pilih", label: "Pilih Role" },
         { value: "User", label: "User" },
         { value: "Admin", label: "Admin" },
         { value: "Store", label: "Store" },

@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react"
 
 
 const isTablekota = (kota) => {
-        console.log("cekkota",kota)
+        //console.log("cekkota",kota)
         return (
             <div className="overflow-x-auto">
                 <table className="table">
@@ -22,7 +22,7 @@ const isTablekota = (kota) => {
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
                                         <div className="mask mask-squircle w-12 h-12">
-                                            <img src={data.gambar} alt="Wisata Cirebon" />
+                                            <img src={data.gambar} alt="Cirebon" />
                                         </div>
                                     </div>
                                 </div>
@@ -34,8 +34,8 @@ const isTablekota = (kota) => {
                             </td>
                            
                             <th>
-                                <Link href={route('edit.wisata')} method="get" data={{wisata_id: data.kota_id}}className="btn btn-outline btn-xs btn-warning">Edit</Link>
-                                <Link href={route('delete.wisata')} method="post" data={{wisata_id: data.kota_id}}className="btn btn-outline btn-xs btn-error">Hapus</Link>                               
+                                <Link href={route('edit.kota')} method="get" data={{kota_id: data.kota_id}}className="btn btn-outline btn-xs btn-warning">Edit</Link>
+                                <Link href={route('delete.kota')} method="post" data={{kota_id: data.kota_id}}className="btn btn-outline btn-xs btn-error">Hapus</Link>                               
                             </th>
                         </tr>)}
                     </tbody>

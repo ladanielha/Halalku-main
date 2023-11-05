@@ -11,8 +11,8 @@ const Navbar = ({ user }) => {
     <div className="navbar">
 
       <div className="flex-1 py-4"  >
-        <a href="/" className="btn btn-ghost normal-case] text-xl text-black" >
-          <img src={g} />
+        <a href="/" className="btn btn-ghost normal-case text-xl text-black" >
+          <img src={g} style={{ width: '100%', height: '100%' }}/>
         </a>
       </div>
       <div className="flex">

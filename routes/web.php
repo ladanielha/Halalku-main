@@ -89,9 +89,9 @@ Route::middleware('CheckRole:Admin')->group(function () {
     Route::get('/listkota', [KotaController::class, 'index'])->name('admin.kota');
     Route::get('/createkota', [KotaController::class, 'create'])->name('create.kota');
     Route::post('/storekota', [KotaController::class, 'store'])->name('store.kota');
-    Route::get('/wisata/edit', [KotaController::class, 'edit'])->name('edit.wisata');
-    Route::post('/wisata/update', [KotaController::class, 'update'])->name('update.wisata');
-    Route::post('/wisata/delete', [KotaController::class, 'destroy'])->name('delete.wisata');
+    Route::get('/kota/edit', [KotaController::class, 'edit'])->name('edit.kota');
+    Route::post('/kota/update', [KotaController::class, 'update'])->name('update.wisata');
+    Route::post('/kota/delete', [KotaController::class, 'destroy'])->name('delete.kota');
 
 });
 
