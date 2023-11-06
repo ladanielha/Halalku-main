@@ -98,9 +98,9 @@ class MakananController extends Controller
      */
     public function detail($id)
     {
-        $place = Makanan::find($id);
+        $food = Makanan::find($id);
         return Inertia::render('Client/Makanandetail', [
-            'places' => $place
+            'foods' => $food
         ]);
     }
 

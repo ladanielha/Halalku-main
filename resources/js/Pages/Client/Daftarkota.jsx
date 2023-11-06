@@ -1,5 +1,5 @@
 import React from 'react';
-import CityCard from '@/Components/CityCard';
+import CityCard from '@/Components/CityPlaceCard';
 
 const cities = [
     {

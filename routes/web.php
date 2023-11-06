@@ -2,11 +2,14 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MakananFrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WisataController;
 use App\Http\Controllers\WisataFrontController;
 use App\Http\Controllers\NilaialtController;
 use App\Http\Controllers\NilaimakananahpController;
+use App\Http\Controllers\NilaimakanansawController;
+use App\Http\Controllers\NilaiwisatasawController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\KotanameController;
@@ -30,15 +33,31 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/wisata', [HomeController::class, 'wisata'])->name('list.wisata');
 Route::get('/erick', [HomeController::class, 'erick'])->name('erick');
-Route::get('/rekomendasiwisata', [HomeController::class, 'formreko'])->name('formreko.wisata');
+//rekomendasi wisata ahp
+Route::get('/rekomendasiwisata', [HomeController::class, 'formrekowisata'])->name('formreko.wisata');
 Route::post('/hitungbobot', [HomeController::class, 'hitungbobot'])->name('hitungbobot');
-Route::get('/hasilrekomendasi', [HomeController::class, 'hasilrekomendasi'])->name('hasilrekomendasi');
+Route::get('/hasilrekomendasiwisata', [HomeController::class, 'hasilrekomendasi'])->name('hasilrekomendasiwahp');
+//rekomendasi wisata ahp
+Route::get('/rekomendasiwisata', [HomeController::class, 'formrekowisata'])->name('formreko.wisata');
+Route::post('/hitungbobot', [HomeController::class, 'hitungbobot'])->name('hitungbobot');
+Route::get('/hasilrekomendasiwisata', [HomeController::class, 'hasilrekomendasi'])->name('hasilrekomendasiwahp');
+//rekomendasi makanan ahp
+Route::get('/rekomendasimakanan', [MakananFrontController::class, 'formrekomakanan'])->name('formreko.makanan');
+Route::post('/hitungbobotmakanan', [MakananFrontController::class, 'hitungbobot'])->name('hitungahpmakanan');
+Route::get('/hasilrekomendasimakanan', [MakananFrontController::class, 'hasilrekomendasi'])->name('hasilrekomendasimahp');
+//staticinfo
 Route::get('/aboutus', [AboutController::class, 'about'])->name('aboutus');
 Route::get('/meetus', [MeetUsController::class, 'meetus'])->name('meetus');
+//jenisdaging
 Route::get('/jenisdaging', [MeetUsController::class, 'jenisdaging'])->name('jenisdaging');
-Route::get('/searchtempat', [KotanameController::class, 'index'])->name('searchtempat');
+//search
+Route::get('/searchtempat', [KotanameController::class, 'tempat'])->name('searchtempat');
+Route::get('/searchmakanan', [KotanameController::class, 'makanan'])->name('searchmakanan');
+//data wisata&makanan
 Route::get('/daftarwisata/{namakota}', [WisataFrontController::class, 'wisatakota'])->name('daftarwisata.kota');    
+Route::get('/daftarmakanan/{namakota}', [MakananFrontController::class, 'makanankota'])->name('daftarmakanan.kota');    
 Route::get('/daftarwisata/detail/{wisata_id}', [WisataController::class, 'detail'])->name('detail.wisata');
+Route::get('/daftarmakanan/detail/{makanan_id}', [MakananController::class, 'detail'])->name('detail.makanan');
 
 
 
@@ -70,7 +89,7 @@ Route::middleware('CheckRole:User')->group(function () {
 });
 
 Route::middleware('CheckRole:Store')->group(function () {
-    Route::get('/userhome', [HomeController::class, 'index'])->name('user');;
+    Route::get('/storehome', [HomeController::class, 'index'])->name('user');;
 });
 
 
@@ -79,6 +98,13 @@ Route::middleware('CheckRole:Admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //crud kota
+    Route::get('/listkota', [KotaController::class, 'index'])->name('admin.kota');
+    Route::get('/createkota', [KotaController::class, 'create'])->name('create.kota');
+    Route::post('/storekota', [KotaController::class, 'store'])->name('store.kota');
+    Route::get('/kota/edit', [KotaController::class, 'edit'])->name('edit.kota');
+    Route::post('/kota/update', [KotaController::class, 'update'])->name('update.wisata');
+    Route::post('/kota/delete', [KotaController::class, 'destroy'])->name('delete.kota');
     //crud data tempat wisata
     Route::get('/listwisata', [WisataController::class, 'index'])->name('admin.wisata');
     Route::get('/createwisata', [WisataController::class, 'create'])->name('create.wisata');
@@ -88,16 +114,15 @@ Route::middleware('CheckRole:Admin')->group(function () {
     Route::post('/wisata/delete', [WisataController::class, 'destroy'])->name('delete.wisata');
     //crud bobot nilai wisata AHP
     Route::get('/listnilaialt', [nilaialtController::class,'index'])->name('admin.nilaialt');
-     Route::get('/nilaialt/edit/{nilaialt_id}', [nilaialtController::class, 'edit'])->name('edit.nilaialt');
+     Route::get('/nilaialt/edit/', [nilaialtController::class, 'edit'])->name('edit.nilaialt');
      Route::post('/nilaialt/update', [nilaialtController::class, 'update'])->name('update.nilaialt');
      Route::post('/nilaialt/delete', [nilaialtController::class, 'destroy'])->name('delete.nilaialt');
-    //crud kota
-    Route::get('/listkota', [KotaController::class, 'index'])->name('admin.kota');
-    Route::get('/createkota', [KotaController::class, 'create'])->name('create.kota');
-    Route::post('/storekota', [KotaController::class, 'store'])->name('store.kota');
-    Route::get('/kota/edit', [KotaController::class, 'edit'])->name('edit.kota');
-    Route::post('/kota/update', [KotaController::class, 'update'])->name('update.wisata');
-    Route::post('/kota/delete', [KotaController::class, 'destroy'])->name('delete.kota');
+    //crud bobot nilai wisata saw
+    Route::get('/listnilaiwisatasaw', [nilaiwisatasawController::class,'index'])->name('admin.nilaiwisatasaw');
+    Route::get('/nilaiwisatasaw/edit/', [nilaiwisatasawController::class, 'edit'])->name('edit.nilaiwisatasaw');
+    Route::post('/nilaiwisatasaw/update', [nilaiwisatasawController::class, 'update'])->name('update.nilaiwisatasaw');
+    Route::post('/nilaiwisatasaw/delete', [nilaiwisatasawController::class, 'destroy'])->name('delete.nilaiwisatasaw');
+
      //crud data makanan
     Route::get('/listmakanan', [MakananController::class, 'index'])->name('admin.makanan');
     Route::get('/createmakanan', [MakananController::class, 'create'])->name('create.makanan');
@@ -110,6 +135,11 @@ Route::middleware('CheckRole:Admin')->group(function () {
     Route::get('/nilaimakananahp/edit', [NilaimakananahpController::class, 'edit'])->name('edit.nilaimakananahp');
     Route::post('/nilaimakananahp/update', [NilaimakananahpController::class, 'update'])->name('update.nilaimakananahp');
     Route::get('/nilaimakananahp/delete', [NilaimakananahpController::class, 'destroy'])->name('delete.nilaimakananahp');
+    //crud nilai  makanan saw
+    Route::get('/listnilaimakanansaw', [NilaimakanansawController::class, 'index'])->name('admin.nilaimakanansaw');
+    Route::get('/nilaimakanansaw/edit', [NilaimakanansawController::class, 'edit'])->name('edit.nilaimakanansaw');
+    Route::post('/nilaimakanansaw/update', [NilaimakanansawController::class, 'update'])->name('update.nilaimakanansaw');
+    Route::get('/nilaimakanansaw/delete', [NilaimakanansawController::class, 'destroy'])->name('delete.nilaimakanansaw');
 });
 
 require __DIR__ . '/auth.php';

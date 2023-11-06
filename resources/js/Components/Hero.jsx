@@ -45,7 +45,7 @@ const Hero = () => {
                                 </button>
                                 <button className="btn btn-secondary btn-lg">
                                     <img src={c} />
-                                    <Link to="/" as="button">Makanan Khas</Link>
+                                    <Link href={route("searchmakanan")} as="button">Makanan Khas</Link>
                                 </button>
                                 <button className="btn btn-secondary btn-lg">
                                     <img src={d} />

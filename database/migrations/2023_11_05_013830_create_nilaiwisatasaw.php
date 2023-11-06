@@ -14,7 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('nilaiwisatasaw', function (Blueprint $table) {
-            $table->id();
+            $table->id('nilaialt_id');
+            $table->unsignedBigInteger('wisata_id');
+            $table->foreign('wisata_id')->references( columns:'wisata_id')->on( table: 'datawisata');
+            $table->decimal('rate_fasilitas');
+            $table->decimal('rate_pelayanan');
+            $table->decimal('rate_ramahkeluarga');
+            $table->decimal('rate_akomodasi');
             $table->timestamps();
         });
     }

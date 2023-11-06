@@ -34,7 +34,6 @@ const isTablenilaialt = (nilaialts) => {
                                             <td>{data.rate_akomodasi}</td>
                                             <th>
                                                 <Link href={route('edit.nilaialt',data={ nilaialt_id: data.nilaialt_id })} method="get"  className="btn btn-outline btn-xs btn-warning">Edit</Link>
-                                                
                                             </th>
                                         </tr>)}
                                 </tbody>

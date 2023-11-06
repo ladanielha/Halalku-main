@@ -3,8 +3,8 @@ import { Link } from "@inertiajs/react"
 
 const isWisatacard = (places) => {
 
-    return places.map((data, i) => {
-        console.log(places)
+    return places.places.map((data, i) => {
+        //console.log(places)
         return (
             
             <div key={i}>
@@ -35,7 +35,7 @@ const noWisata = () => {
 }
 
 const Wisatacard = ({ places }) => {
-    console.log(places)
+   // console.log(places)
     return !places ? noWisata() : isWisatacard(places)
 }
 

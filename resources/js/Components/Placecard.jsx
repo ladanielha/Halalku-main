@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react"
 const isPlacecard = (places) => {
 
     return places.places.map((data, i) => {
-        console.log(places)
+        //console.log(places)
         return (
             <div key={i}>
                 <Link href={route('detail.wisata',{ wisata_id: data.wisata_id })} method="get">
@@ -32,7 +32,7 @@ const noPlaces = () => {
 }
 
 const Placecard = ({ places }) => {
-    console.log(places)
+    //console.log(places)
     return !places ? noPlaces() : isPlacecard(places)
 }
 

@@ -98,7 +98,7 @@ class WisataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function detail($id)
+/*     public function detail($id)
     {
         $wisatadata = Places::select(
             'datawisata.wisata_id',
@@ -122,6 +122,15 @@ class WisataController extends Controller
         //$place = Places::find($id);
         return Inertia::render('Client/Wisatadetail', [
             'places' => $wisatadata
+        ]);
+    } */
+
+    public function detail($id)
+    {
+
+        $place = Places::find($id);
+        return Inertia::render('Client/Wisatadetail', [
+            'places' =>$place
         ]);
     }
 
