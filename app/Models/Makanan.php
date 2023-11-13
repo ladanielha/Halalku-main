@@ -10,7 +10,7 @@ class Makanan extends Model
 {
     use HasFactory;
 
-    protected $table = 'datamakanan';
+    protected $table = 'datamakanancirebon';
 
 
     protected $fillable = [

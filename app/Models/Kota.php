@@ -22,11 +22,11 @@ class Kota extends Model
         'created_at' => 'datetime',
     ];
 
-    protected function gambar(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('uploads/'.$value),
-        );
-    }
+    // protected function gambar(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => url('uploads/'.$value),
+    //     );
+    // }
 
 }

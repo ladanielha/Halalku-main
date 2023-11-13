@@ -20,10 +20,10 @@ const Meetus = (props) => {
 
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
                 <div className="text-center pb-12">
-                    <h2 className="font-bold text-3xl md:text-4xl  font-heading text-gray-900">
+                    <h2 className="font-bold text-3xl md:text-4xl  font-heading text-white">
                         Check our awesome team members
                     </h2>
-                    <h1 className="text-base font-bold lg:text-3xl text-white">
+                    <h1 className="text-base font-bold lg:text-3xl text-green-700">
                         Team Halalku
                     </h1>
                 </div>

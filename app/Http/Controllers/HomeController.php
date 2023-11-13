@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\KotaCollection;
 use App\Http\Resources\PlacesCollection;
+use App\Models\Kota;
 use App\Models\Nilaipv;
 use App\Models\Nilaialt;
 use Illuminate\Http\Request;
@@ -21,9 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $places = new PlacesCollection(Places::paginate(6));
+        $places = new PlacesCollection(Places::orderBy('wisata_id', 'desc')->paginate(3));
+        $kotas = new KotaCollection(Kota::orderBy('kota_id', 'desc')->paginate(6));
         return Inertia::render('Client/Home',[ 
-            'places'=> $places]);
+            'places'=> $places,
+            'city' => $kotas
+        ]);
     }
 
     /**
@@ -33,17 +38,17 @@ class HomeController extends Controller
      */
     public function wisata()
     {
-        $places = new PlacesCollection(Places::paginate(15));
-       
+        $places = new PlacesCollection(Places::paginate(9));
         return Inertia::render('Client/Wisata',[ 
             'places'=> $places]);
     }
 
-    public function formreko()
+    public function formrekowisata()
     {
         //get kriteria untuk tampil di form 
         return Inertia::render('Client/Rekomendasi');
     }
+
     
 
     public function hitungbobot(Request $request)
@@ -57,7 +62,7 @@ class HomeController extends Controller
             'pelayanan_akomodasi' => 'required',
             'ramah_akomodasi' => 'required',
           ], [
-            'required'   => 'Bagian :attribute perbandingan harus di isi.',
+            'required'   => 'Bagian :attribute perbandingan diatas harus di isi.',
           ],[
             
             'fasilitas_pelayanan'   => 'Nilai',
@@ -97,9 +102,9 @@ class HomeController extends Controller
             [ 1/$fasilitas_akomodasi , 1/$pelayanan_akomodasi, 1/$ramah_akomodasi, 1] 
             
         ];
-        //dd($inimatrixku);
+
         //step 2: panggil function normalisasi nilai matrix 
-        //$normalizedMatrix = $this->normalizeMatrixByColumnSum($inimatrixku);
+        $normalizedMatrix = $this->normalizeMatrixByColumnSum($inimatrixku);
         //step 3: panggil function hitung nilai pv
         $normalizedCriteriaPriorities = $this->calculateCriteriaPriorities($inimatrixku);
        
@@ -117,24 +122,37 @@ class HomeController extends Controller
 
         
         if($cr > 0.1){
-            $temp="Nilai Perbandingan tidak konsisten ";
+            //$temp="Nilai Perbandingan tidak konsisten ";
             
-            dd($temp,$cr);  
+            //dd($temp,$cr,$normalizedMatrix);  
+            return redirect()->route('formreko.wisata')->with('message', 'Nilai Perbandingan tidak konsisten, silakan masukan nilai kembali');
         }
         else {
-            Nilaipv::where('nilaipv_id', 1)->update([
-                'pv_fasilitas'      => $normalizedCriteriaPriorities[0],
-                'pv_pelayanan'      => $normalizedCriteriaPriorities[1],
-                'pv_ramahkeluarga'  => $normalizedCriteriaPriorities[2],
-                'pv_akomodasi'      => $normalizedCriteriaPriorities[3],
-            ]);
-             $wisata_alt= Nilaialt::select('wisata_id','rate_fasilitas','rate_pelayanan','rate_ramahkeluarga','rate_akomodasi')->get() ;
+                       
+             $wisatadata = Places::select(
+                'datawisata.wisata_id',
+                'namatempat',
+                'jeniswisata',
+                'alamat',
+                'harga',
+                'jambuka',
+                'jamtutup',
+                'desc',
+                'gambar',
+                'link',
+                'nilaialt.rate_fasilitas',
+                'nilaialt.rate_pelayanan',
+                'nilaialt.rate_ramahkeluarga',
+                'nilaialt.rate_akomodasi'
+            )
+            ->join('nilaialt', 'datawisata.wisata_id', '=', 'nilaialt.wisata_id')
+            ->get();
             //dd($normalizedMatrix,$normalizedCriteriaPriorities,$multiplied,$inilamdamax,$ci,$cr,$wisata_alt);
-            if (count($wisata_alt) == 0)
+            if (count($wisatadata) == 0)
             abort(404);
                         
             // hitung nilai tiap data dengan nilai bobot
-            foreach ($wisata_alt as $record) {
+            foreach ($wisatadata as $record) {
                 $record->score = (
                     $record->rate_fasilitas * $normalizedCriteriaPriorities[0] +
                     $record->rate_pelayanan * $normalizedCriteriaPriorities[1] +
@@ -143,11 +161,12 @@ class HomeController extends Controller
                 );
             }
             // sorting berdasarkan nilai 
-            $wisata_alt = $wisata_alt->sortByDesc('score'); 
+            $wisatadata = $wisatadata->sortByDesc('score')->take(6); 
             //simpan data ke dalam session untuk di tujukan ke hasilrekomendasi 
-            session(['hasilrekomendasi' => $wisata_alt]);
+            //dd($wisatadata);
+            session(['hasilrekomendasi' => $wisatadata]);
 
-            return redirect()->route('hasilrekomendasi')->with('message', 'Hasil Rekomendasi');           
+            return redirect()->route('hasilrekomendasiwahp')->with('message', 'Hasil Rekomendasi');           
         }
                 
     }
@@ -166,7 +185,7 @@ class HomeController extends Controller
             $criteriaPriorities[] = $rowSum / $criteriaCount;
         }
 
-        // step 3: normalisasi nilai dengan dibagi jumlah kriteria
+        // step 3: normalisasi nilai dengan dibagi jumlah banyaknya kriteria
         $sumCriteriaPriorities = array_sum($criteriaPriorities);
         $normalizedCriteriaPriorities = array_map(function ($value) use ($sumCriteriaPriorities) {
             return $value / $sumCriteriaPriorities;
@@ -253,6 +272,14 @@ class HomeController extends Controller
     private function convertCompareValue($inMatrix)
     {
             switch($inMatrix){
+                case -8:
+                    return 9;
+                case -7:
+                    return 8;
+                case -6:
+                    return 7;
+                case -5:
+                    return 6;
                 case -4:
                     return 5;
                 case -3:
@@ -269,6 +296,14 @@ class HomeController extends Controller
                     return 0.25;
                 case 4:
                     return 0.2;
+                case 5:
+                    return 0.1666;
+                case 6:
+                    return 0.1428;
+                case 7:
+                    return 0.125;
+                case 8:
+                    return 0.1111;
                 default:
                     return 1;
                     
@@ -279,47 +314,12 @@ class HomeController extends Controller
     {
         //get data rekomendasi dari session 
         $rekomendasi = session('hasilrekomendasi');
-        $wisataID = collect($rekomendasi)->pluck('wisata_id')->toArray();
-        
-        //dd($wisataID);
-        
-        // Get data from the 'Places' model where 'wisata_id' matches values from the 'wisata' array
-        $datawisata = Places::whereIn('wisata_id', $wisataID)
-        ->orderByRaw(DB::raw("FIELD(wisata_id, " . implode(',', $wisataID) . ")"))
-        ->take(6)
-        ->get();
-
-
+        //dd($rekomendasi);
         return Inertia::render('Client/Hrekomendasi',[ 
-            'places'=> $datawisata]);
+            'places'=> $rekomendasi
+        ]);
     }
 
-              /* 
-            $defmatrix= [
-            [
-                1,
-                $inMatrix[$mfp],
-                $inMatrix['fr'],
-                $inMatrix['fa'],
-            ],
-            [
-                1/$inMatrix['fp'],
-                1,
-                $inMatrix['pr'],
-                $inMatrix['pa'],
-            ],
-            [
-                1/$inMatrix['fr'],
-                1/$inMatrix['pr'],
-                1,
-                $inMatrix['ra'],
-            ],
-            [
-                1/$inMatrix['fa'],
-                1/$inMatrix['pa'],
-                1/$inMatrix['ra'],
-                1,
-            ],
-        ]; */
+              
 
 }

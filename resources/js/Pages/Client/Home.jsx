@@ -3,8 +3,6 @@ import { Head } from "@inertiajs/react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Hero from "@/Components/Hero";
-import Placecard from "@/Components/Placecard";
-import Paginator from "@/Components/Paginator";
 import Kotapilihan from "@/Components/Kotapilihan";
 
 export default function Home(props) {
@@ -13,7 +11,7 @@ export default function Home(props) {
     return (
         <div className=" min-h-screen bg-slate-50">
             <Head title="Wisata Halal Cirebon" />
-            <Navbar user={props.auth.user} />
+            <Navbar user={props.auth.user} city={props.city.data} />
             <Hero />
 
             <section className='py-10 md:py-16'>
@@ -27,10 +25,7 @@ export default function Home(props) {
             </section>
             
             <div className="flex justify-center flex-col lg:flex-row lg:flex-wrap lg:items-stretch items-center gap-4 px-10 py-6">
-                <Kotapilihan places={props.places.data} />
-            </div>
-            <div className="flex justify-center items-center">
-                <Paginator meta={props.places.meta} />
+                <Kotapilihan city={props.city.data} />
             </div>
             <Footer />
         </div>

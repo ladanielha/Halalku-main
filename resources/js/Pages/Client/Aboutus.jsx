@@ -22,7 +22,7 @@ export const fontWeights = {
 const Aboutus = (props) => {
     return (
         <>
-        <Navbar user={props.auth.user}/>
+            <Navbar user={props.auth.user} />
             <div className="hero min-h-screen bg-base-100">
 
                 <div className="hero min-h-screen" style={{ backgroundImage: 'url(/uploads/background.jpg)' }}>
@@ -52,23 +52,48 @@ const Aboutus = (props) => {
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <img src="/uploads/background.jpg" className="max-w-sm rounded-lg shadow-2xl" />
                     <div>
-                        <h1 className="text-5xl font-bold text-white">Kenapa pilih halalku?
+                        <h1 className="text-5xl font-bold text-white py-10">Kenapa pilih halalku?
                         </h1>
-                        <p className="py-6 font-medium text-white"> Kualitas Terbaik: Kami mengutamakan kualitas dalam semua yang kami tawarkan. Setiap rekomendasi makanan, destinasi wisata, dan jenis daging yang kami hadirkan telah dipilih dengan teliti untuk memenuhi standar halal tertinggi.
+                        <p className="py-6 font-medium text-white">
+                            <span className="text-3xl text-blue-600 bg-white px-2 py-1 rounded">
+                                Kualitas Terbaik<br></br>
+                            </span> <br></br><br></br>Kami mengutamakan kualitas dalam semua yang kami tawarkan. Setiap rekomendasi makanan, destinasi wisata, dan jenis daging yang kami hadirkan telah dipilih dengan teliti untuk memenuhi standar halal tertinggi.
+                        </p>
 
-                            Kemudahan: Platform kami dirancang untuk memberikan pengalaman yang mudah dan nyaman. Cari, temukan, dan nikmati apa yang Anda cari dengan beberapa kali klik.
+                        <p className="py-6 font-medium text-white">
+                            <span className="text-3xl text-blue-600 bg-white px-2 py-1 rounded">
+                                Kemudahan
+                            </span> <br></br><br></br>Platform kami dirancang untuk memberikan pengalaman yang mudah dan nyaman. Cari, temukan, dan nikmati apa yang Anda cari dengan beberapa kali klik.
+                        </p>
 
-                            Dukungan Pelanggan: Tim dukungan pelanggan kami selalu siap membantu Anda. Pertanyaan, saran, atau masukan, kami selalu mendengarkan Anda.
+                        <p className="py-6 font-medium text-white">
+                            <span className="text-3xl text-blue-600 bg-white px-2 py-1 rounded">
+                                Dukungan Pelanggan
+                            </span> <br></br><br></br>Tim dukungan pelanggan kami selalu siap membantu Anda. Pertanyaan, saran, atau masukan, kami selalu mendengarkan Anda.
+                        </p>
 
-                            Komunitas Halal: Halalku bukan hanya sebuah platform, tapi juga komunitas yang peduli tentang kehalalan. Bergabunglah dengan kami dan temukan orang-orang dengan minat yang sama.
+                        <p className="py-6 font-medium text-white">
+                            <span className="text-3xl text-blue-600 bg-white px-2 py-1 rounded">
+                                Komunitas Halal
+                            </span> <br></br><br></br>Halalku bukan hanya sebuah platform, tapi juga komunitas yang peduli tentang kehalalan. Bergabunglah dengan kami dan temukan orang-orang dengan minat yang sama.
+                        </p>
 
-                            Bersama Halalku, Anda akan menemukan cara baru untuk mengeksplorasi kuliner, destinasi wisata, dan jenis daging halal di seluruh Indonesia. Jadilah bagian dari perjalanan kami menuju pengalaman halal yang tak terlupakan.
+                        <p className="py-6 font-medium text-white">
+                            <span className="text-3xl text-blue-600 bg-white px-2 py-1 rounded">
+                                Bersama Halalku
+                            </span> <br></br><br></br>Anda akan menemukan cara baru untuk mengeksplorasi kuliner, destinasi wisata, dan jenis daging halal di seluruh Indonesia. Jadilah bagian dari perjalanan kami menuju pengalaman halal yang tak terlupakan.
+                        </p>
 
-                            Selamat berselancar di Halalku!</p>
+                        <p className="py-6 font-medium  text-white text-center justify-center">
+                            <span className="text-5xl text-orange-950 bg-white px-2 py-1 rounded">
+                                Selamat berselancar di Halalku!
+                            </span>
+                        </p>
+
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     )
 }

@@ -13,12 +13,21 @@ use Illuminate\Http\Request;
 
 class KotanameController extends Controller
 {
-    public function index()
+    public function tempat()
     {
         $datakota = Kota::all();
 
         // Return Json Response
         return Inertia::render('Client/SearchTempat',[ 
+            'city'=> $datakota]);
+    }
+
+    public function makanan()
+    {
+        $datakota = Kota::all();
+
+        // Return Json Response
+        return Inertia::render('Client/SearchMakanan',[ 
             'city'=> $datakota]);
     }
 }

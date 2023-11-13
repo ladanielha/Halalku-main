@@ -9,13 +9,13 @@ const isTablemakanan = (makanan) => {
                 {/* head */}
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Gambar</th>
                         <th>Nama Makanan</th>
                         <th>Jenis Makanan</th>
                         <th>Restoran</th>
                         <th>Harga</th>
                         <th>Desc</th>
-                        
                         <th>No Sertifikat</th>
                         <th>Aksi</th>
                         <th></th>
@@ -24,6 +24,7 @@ const isTablemakanan = (makanan) => {
                 <tbody>
                     {makanan.makanan.map((data, i) =>
                         <tr key={i}>
+                            <td>{++i}</td>
                             <td>
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
